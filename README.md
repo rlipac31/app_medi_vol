@@ -1,4 +1,4 @@
-# 🏥 Medivol App - Tu Gestión Médica al Alcance de tu Mano
+# Medivol App - Tu Gestión Médica al Alcance de tu Mano
 
 <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" alt="logo Medivol" /> ## ✨ Visión General
 
