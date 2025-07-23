@@ -1,0 +1,11 @@
+// En alguna parte de tu código de Kotlin (ej. en un botón de "Cerrar Sesión")
+fun logoutUser() {
+    val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+    sharedPref.edit().remove("token").apply() // Elimina el token
+
+    // Opcional: Redirigir al usuario a la pantalla de inicio de sesión
+    val intent = Intent(this, LoginActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Borra el stack de actividades
+    startActivity(intent)
+    finish() // Cierra la actividad actual
+}

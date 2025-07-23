@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/consultaItemCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/white"
+
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+            <TextView
+                android:id="@+id/tvLetterHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOY"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/blue1"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+            <TextView
+                android:id="@+id/tvConsultaFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(18/08/2022)"
+                app:hintTextColor="@color/blue3"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="@color/blue1"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="25dp"
+                android:layout_marginVertical="0dp"
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/mini_logo"
+                tools:visibility="visible" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tvMedicoName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    tools:text="Adriano Moreira Sales" />
+
+                <TextView
+                    android:id="@+id/tvMedicoSpecialty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_marginTop="4dp"
+                    tools:text="Ginecologista | Documento 15.879-SP" />
+
+
+                <TextView
+                    android:id="@+id/tvPacienteName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    tools:text="Adriano Moreira Sales" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray2"
+                    android:layout_marginTop="4dp"
+                    tools:text="Paciente" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/punta_flecha"
+                android:layout_marginLeft="60dp"
+                android:background="@android:color/transparent"
+                />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/expandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:paddingStart="12dp"
+            >
+            <TextView
+                android:id="@+id/tvPacienteEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="brenda.almeida@med.com.br"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/baseline_alternate_email_24" />
+            <TextView
+                android:id="@+id/tvPacientePhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="(51) 99999-8888"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/baseline_add_call_24" />
+            <TextView
+                android:id="@+id/tvPacienteDocumento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="Doc: 172466537 - 6"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/baseline_add_call_24" />
+            <TextView
+                android:id="@+id/tvPacienteAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:text="Av. Altas Gracias, 633 -Miramar/PR\nPostal: 66.777-100"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/baseline_add_location_24" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEditar"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="50dp"
+                    android:text="Editar"
+                    android:textColor="#2196F3"
+                    app:strokeColor="#2196F3" />
+
+                <Button
+                    android:id="@+id/btnDesactivar"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eliminar"
+                    android:textColor="#F44336"
+                    app:strokeColor="#F44336"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray2"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="0.8"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
