@@ -1,6 +1,6 @@
 # Medivol App - Tu Gestión Médica al Alcance de tu Mano
 
-<img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" alt="logo Medivol" /> ## ✨ Visión General
+<img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" width="250px" alt="logo Medivol" /> ## ✨ Visión General
 
 **Medivol** es una aplicación móvil desarrollada en **Kotlin** 📱 para la plataforma Android, diseñada para optimizar la gestión de citas y datos médicos. Esta aplicación se conecta a un potente servicio backend desarrollado con **Java Spring Boot** 🍃, ofreciendo un control de acceso robusto mediante **JWT (JSON Web Tokens)** 🔑 y persistencia de datos en **MySQL** 🗄️.
 
@@ -38,14 +38,14 @@ Aquí puedes añadir algunas capturas de pantalla de tu aplicación para mostrar
 
 | Pantalla de Inicio de Sesión | Lista de inicio |
 | :-------------------------- |
-<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_login_na8x1p.png" alt="logo Medivol" /> |
-| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" alt="logo Medivol" /> |
+<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_login_na8x1p.png" width="500px" alt="logo Medivol" /> |
+| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png"  width="500px" alt="logo Medivol" /> |
 
 | Pantalla de inicio |
-<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_inicio_eoxmxq.png" alt="logo Medivol" /> |
+<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_inicio_eoxmxq.png"  width="500px" alt="logo Medivol" /> |
 | Lista medicos |
 
-|<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_listaMedicos_lm8dsv.png" alt="logo Medivol" /> |
+|<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_listaMedicos_lm8dsv.png"  width="500px" alt="logo Medivol" /> |
 
 
 ---
