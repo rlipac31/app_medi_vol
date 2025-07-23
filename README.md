@@ -50,10 +50,7 @@ Aquí puedes añadir algunas capturas de pantalla de tu aplicación para mostrar
 
 ---
 
-**Nota:**
-* Reemplaza los paths `/screenshots/login_screen.png`, etc., con las rutas reales de tus imágenes en tu repositorio GitHub. Es común crear una carpeta `screenshots` en la raíz del repositorio para esto.
-* Asegúrate de que tus capturas de pantalla sean claras y muestren los aspectos más importantes de la interfaz de usuario.
-* Si tienes un logotipo para "Medivol", puedes añadirlo al principio.
+
 
 ## ⚙️ Configuración y Ejecución
 
@@ -68,8 +65,8 @@ Aquí puedes añadir algunas capturas de pantalla de tu aplicación para mostrar
 
 1.  **Clona el repositorio del Backend:**
     ```bash
-    git clone [https://github.com/tu_usuario/tu_repo_backend.git](https://github.com/tu_usuario/tu_repo_backend.git)
-    cd tu_repo_backend
+    [git clone [https://github.com/tu_usuario/tu_repo_backend.git](https://github.com/tu_usuario/tu_repo_backend.git)
+    cd tu_repo_backend](https://github.com/rlipac31/back_mediVol)
     ```
 2.  **Configura la Base de Datos:**
     * Crea una base de datos MySQL llamada `db_medi_vol`.
