@@ -1,4 +1,4 @@
-# 🏥 API REST de Citas Médicas - Medivol Backend
+# API REST de Citas Médicas - Medivol Backend
 
 ![Logo de Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)
 ![Logo de Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
