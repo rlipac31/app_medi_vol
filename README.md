@@ -36,13 +36,14 @@ Actualmente, Medivol proporciona funcionalidades esenciales como el inicio de se
 
 Aquí puedes añadir algunas capturas de pantalla de tu aplicación para mostrar su interfaz y funcionalidad.
 
-| Pantalla de Inicio de Sesión | Lista de Médicos |
+| Pantalla de Inicio de Sesión | Lista de inicio |
 | :--------------------------: | :--------------: |
-| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" alt="logo Medivol" /> |
 <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_login_na8x1p.png" alt="logo Medivol" /> |
+| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" alt="logo Medivol" /> |
+
 | Pantalla de inicio |
 <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_inicio_eoxmxq.png" alt="logo Medivol" /> |
-| Lista de Pacientes | Lista de Consultas |
+| Lista medicos |
 | :----------------: | :----------------: |
 |<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_listaMedicos_lm8dsv.png" alt="logo Medivol" /> |
 
