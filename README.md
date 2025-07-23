@@ -42,11 +42,11 @@ Aquí puedes añadir algunas capturas de pantalla de tu aplicación para mostrar
 
 | Pantalla de Inicio de Sesión | Lista de Inicio (Menú Principal) |
 | :--------------------------: | :------------------------------: |
-| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_login_na8x1p.png" width="350px" alt="Pantalla de Login" /> | <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/logo_menu_qglfrx.png" width="350px" alt="Menú Principal" /> |
+| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_login_na8x1p.png" width="350px" alt="Pantalla de Login" /> | <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_inicio_eoxmxq.png" width="350px" alt="Pantalla de Inicio" />
 
 | Pantalla de Inicio (Dashboard/Home) | Lista de Médicos |
 | :---------------------------------: | :--------------: |
-| <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_inicio_eoxmxq.png" width="350px" alt="Pantalla de Inicio" /> | <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_listaMedicos_lm8dsv.png" width="350px" alt="Lista de Médicos" /> |
+|  | <img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_listaMedicos_lm8dsv.png" width="350px" alt="Lista de Médicos" /> |
 
 
 ---
