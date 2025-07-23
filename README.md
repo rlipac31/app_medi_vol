@@ -1,6 +1,6 @@
 # Medivol App - Tu Gestión Médica al Alcance de tu Mano
 
-![Logotipo de Medivol (opcional)](/screenshots/logo.png) ## ✨ Visión General
+![Logotipo de Medivol (opcional)] <img src="https://res.cloudinary.com/rlipac/image/upload/v1753303456/Logo_atdlvp.png" widt="250px" />   ## ✨ Visión General
 
 **Medivol** es una aplicación móvil desarrollada en **Kotlin** 📱 para la plataforma Android, diseñada para optimizar la gestión de citas y datos médicos. Esta aplicación se conecta a un potente servicio backend desarrollado con **Java Spring Boot** 🍃, ofreciendo un control de acceso robusto mediante **JWT (JSON Web Tokens)** 🔑 y persistencia de datos en **MySQL** 🗄️.
 
