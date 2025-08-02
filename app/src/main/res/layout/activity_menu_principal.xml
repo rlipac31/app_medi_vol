@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
 
-            />
+            tools:ignore="DuplicateIds" />
 
     </LinearLayout>
 
@@ -54,7 +54,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:id="@+id/menuTitleTextView"
+            android:id="@+id/menuTitleTextView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"

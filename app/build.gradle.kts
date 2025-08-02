@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // ESTA LÍNEA ES FUNDAMENTAL:
+    alias(libs.plugins.kotlin.parcelize)
+
 }
 
 android {
@@ -44,7 +48,13 @@ android {
         jvmTarget = "11"
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
+
+
 
 dependencies {
     // Retrofit
@@ -62,6 +72,8 @@ dependencies {
    // implementation("com.squareup.okhttp3:logging-interceptor:5.0.0")// da error
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    //para leer archivos json
+    implementation("com.google.code.gson:gson:2.10.1")
 
 
     implementation(libs.androidx.core.ktx)

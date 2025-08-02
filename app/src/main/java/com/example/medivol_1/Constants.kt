@@ -5,7 +5,8 @@ object Constants {
     //login
     const val PATH_LOGIN="login"
     //medicos
-    const val PATH_ALLMEDICOS="medicos"
+    const val PATH_MEDICOS="medicos"
+    const val PATH_MEDICO_ID="medicos/{id}"
     //pacients
     const val PATH_ALLPACIENTES="pacientes"
 

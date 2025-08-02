@@ -1,17 +1,24 @@
 package com.example.medivol_1
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.medivol_1.formularios.EditMedicoActivity
 // Importa el Medico del paquete correcto, si lo moviste a 'model'
 import com.example.medivol_1.model.medico.Medico
 import com.example.medivol_1.model.Direccion // Importa también el modelo Direccion
 
-class MedicoAdapter(private var medicos: List<Medico>) : RecyclerView.Adapter<MedicoAdapter.MedicoViewHolder>() {
+class MedicoAdapter(
+    private var medicos: List<Medico>,
+    private val onEditClick: (Medico) -> Unit,      // Callback para editar
+    private val onDeleteClick: (Medico) -> Unit
+) : RecyclerView.Adapter<MedicoAdapter.MedicoViewHolder>() {
 
     // Listener para los clics en los ítems (puedes usarlo para expandir/colapsar o para acciones generales)
     private var onItemClickListener: ((Medico) -> Unit)? = null
@@ -24,7 +31,8 @@ class MedicoAdapter(private var medicos: List<Medico>) : RecyclerView.Adapter<Me
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_medico, parent, false)
-        return MedicoViewHolder(view)
+        return MedicoViewHolder(view, onEditClick, onDeleteClick)
+
     }
 
     override fun onBindViewHolder(holder: MedicoViewHolder, position: Int) {
@@ -42,7 +50,6 @@ class MedicoAdapter(private var medicos: List<Medico>) : RecyclerView.Adapter<Me
         } else {
             holder.tvLetterHeader.visibility = View.GONE // Si la lista está vacía, ocultar encabezados
         }
-
 
         // Lógica de expansión/colapso
         val isExpanded = position == expandedPosition
@@ -66,15 +73,7 @@ class MedicoAdapter(private var medicos: List<Medico>) : RecyclerView.Adapter<Me
             onItemClickListener?.invoke(medico) // Llamar al listener externo si se desea acción al expandir/colapsar
         }
 
-       /*// Clis para los botones dentro del item (Editar/Desactivar)
-        holder.btnEditar.setOnClickListener {
-            // Lógica para editar el médico. Podrías pasar el 'medico' a una función en la Activity.
-            // Ejemplo: (holder.itemView.context as MedicoActivity).onEditMedicoClicked(medico)
-        }
-        holder.btnDesactivar.setOnClickListener {
-            // Lógica para desactivar el médico.
-            // Ejemplo: (holder.itemView.context as MedicoActivity).onDesactivarMedicoClicked(medico)
-        }*/
+
     }
 
     override fun getItemCount(): Int = medicos.size
@@ -86,7 +85,13 @@ class MedicoAdapter(private var medicos: List<Medico>) : RecyclerView.Adapter<Me
         expandedPosition = -1 // Reiniciar la posición expandida al actualizar la lista
     }
 
-    class MedicoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MedicoViewHolder(
+        itemView: View,
+        private val onEditClick: (Medico) -> Unit,
+        private val onDeleteClick: (Medico) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+
+
         val tvLetterHeader: TextView = itemView.findViewById(R.id.tvLetterHeader)
         val tvMedicoName: TextView = itemView.findViewById(R.id.tvMedicoName)
         val tvMedicoSpecialty: TextView = itemView.findViewById(R.id.tvMedicoSpecialty)
@@ -98,33 +103,30 @@ class MedicoAdapter(private var medicos: List<Medico>) : RecyclerView.Adapter<Me
         val btnDesactivar: Button = itemView.findViewById(R.id.btnDesactivar)
 
         fun bind(medico: Medico) {
+           //    medicoId= medico.id
             tvMedicoName.text = medico.nombre
             // Combina especialidad y documento
             tvMedicoSpecialty.text = "${medico.especialidad} | Documento ${medico.documento}"
             tvMedicoEmail.text = medico.email
-
             // El teléfono y el email no pueden ser nulos según tu JSON, pero si fueran, un "N/A" es bueno
             tvMedicoPhone.text = medico.telefono
-
             // Corregir la dirección, ya que ahora es un objeto Direccion
             tvMedicoAddress.text = formatAddress(medico.direccion)
-
-            // Si tienes un campo 'activo' en tu modelo Medico y tu API lo devuelve, puedes descomentar esto:
-            /*
-            if (medico.activo == false) { // Asumiendo que 'activo' es un Boolean en tu Medico.kt
-                tvMedicoName.append(" (Inactivo)")
-                // Puedes cambiar colores, etc. por ejemplo:
-                // tvMedicoName.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.darker_gray))
-            } else {
-                // Restaurar color si estaba inactivo y ahora es activo (si la lista se recicla)
-                // tvMedicoName.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.black))
+            // 4. Asigna los listeners de los botones aquí en el bind()
+            btnEditar.setOnClickListener {
+                onEditClick(medico) // Llama al callback de editar
             }
-            */
+
+            btnDesactivar.setOnClickListener {
+                onDeleteClick(medico) // Llama al callback de eliminar
+            }
+
         }
 
         // Función auxiliar para formatear la dirección
         private fun formatAddress(direccion: Direccion): String {
-            return "${direccion.calle} ${direccion.numero}, ${direccion.barrio}, ${direccion.ciudad}, ${direccion.estado}, CP: ${direccion.codigo_postal}" +
+            return "${direccion.calle} ${direccion.numero}, ${direccion.departamento}, ${direccion.provincia}, ${direccion.distrito}" +
+                    (if (!direccion.codigo_postal.isNullOrEmpty()) " (${direccion.codigo_postal})" else "") +
                     (if (!direccion.complemento.isNullOrEmpty()) " (${direccion.complemento})" else "")
         }
     }

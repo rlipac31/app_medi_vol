@@ -13,8 +13,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.Locale
 import android.util.Log
 import android.view.Menu
@@ -50,11 +48,6 @@ class ConsultaActivity : AppCompatActivity() {
         }
 
 
-        // Obtener referencias de los botones del menú superior
-        //   val btnAddMedico: Button = findViewById(R.id.btnAddMedico)
-        //  val btnEditMedico: Button = findViewById(R.id.btnEditMedico)
-        //  val btnDeleteMedico: Button = findViewById(R.id.btnDeleteMedico)
-        //  val fabAddMedico: Button = findViewById(R.id.fabAddMedico) // El FAB de la parte inferior
 
         // Configurar RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewMedicos)
@@ -99,8 +92,7 @@ class ConsultaActivity : AppCompatActivity() {
             }
         })
 
-        val  servicio = ApiClient.getConsultaService(this)
-
+        val  servicio = ApiClient.getConsultaService(this)// llando al servicio
         servicio.getConsultas().enqueue(object : Callback<PageConsultaResponse> {
             override fun onResponse(
                 call: Call<PageConsultaResponse>,
@@ -110,25 +102,19 @@ class ConsultaActivity : AppCompatActivity() {
                     val pageResponse = response.body()
                     consultasList = pageResponse?.content?.toMutableList() ?: mutableListOf()
                     consultasList.sortBy { it.fecha }
-
                     consultaAdapter.updateList(consultasList)
-
                     Log.d("ConsultaServicio", "Datos recibidos: $consultasList")
                 } else {
                     Toast.makeText(this@ConsultaActivity, "Error al obtener datos", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<PageConsultaResponse>, t: Throwable) {
                 Toast.makeText(this@ConsultaActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 Log.e("ConsultaServicio", "Error en la llamada", t)
             }
         })
 
-        // Cargar datos de ejemplo (esto vendría de tu API REST real)
-        //loadSampleMedicos()
-      //  setupRetrofit()
-       // loadConsultas()
+
         // codigo de android estudio
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.consulta)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -16,7 +16,6 @@ class AuthInterceptor(private val context: Context) : Interceptor {
         } else {
             chain.request()
         }
-
         return chain.proceed(request)
     }
 }

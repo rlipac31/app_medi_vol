@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RegistroMedico"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".formularios.RegistroMedicoActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMedico"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue3"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back_ios_24"
+        app:title="Médicos"
+        app:titleTextColor="@android:color/white">
+        <ImageView
+            android:id="@+id/menuDots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="pacientes"
+            android:padding="10dp"
+            android:src="@drawable/logo_medico" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarMedico"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+
+
+               <TextView
+                   android:id="@+id/tv_profesional_title"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                   android:text="Profesional"
+                   android:textColor="@color/blue3"
+                   android:textSize="20sp"
+                   android:textStyle="bold"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <com.google.android.material.textfield.TextInputLayout
+                   android:id="@+id/til_nombre_completo"
+                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="8dp"
+                   app:boxCornerRadiusBottomEnd="8dp"
+                   app:boxCornerRadiusBottomStart="8dp"
+                   app:boxCornerRadiusTopEnd="8dp"
+                   app:boxCornerRadiusTopStart="8dp"
+                   app:boxStrokeColor="@color/gray2"
+                   app:hintTextColor="@color/gray2"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/tv_profesional_title">
+
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:id="@+id/etNombreMedico"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:hint="Nombre completo"
+                       android:inputType="textPersonName|textCapWords"
+                       android:text="Brenda de Almeida"
+                       android:textColor="@color/black"
+                       android:textColorHint="@color/gray2" />
+               </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_obligatorio_nombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/til_nombre_completo"
+                app:layout_constraintTop_toBottomOf="@+id/til_nombre_completo" />
+
+               <com.google.android.material.textfield.TextInputLayout
+                   android:id="@+id/til_especialidad"
+                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="16dp"
+                   android:layout_marginEnd="8dp"
+                   app:boxCornerRadiusBottomEnd="8dp"
+                   app:boxCornerRadiusBottomStart="8dp"
+                   app:boxCornerRadiusTopEnd="8dp"
+                   app:boxCornerRadiusTopStart="8dp"
+                   app:boxStrokeColor="@color/gray2"
+                   app:hintTextColor="@color/gray2"
+                   app:layout_constraintEnd_toStartOf="@id/til_documento"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/til_nombre_completo">
+
+                   <AutoCompleteTextView
+                       android:id="@+id/atCEspecialidad"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:hint="Especialidad"
+                       android:inputType="none"
+                       android:text="Ortopedista"
+                       android:textColor="@color/black"
+                       android:textColorHint="@color/gray2" />
+               </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_obligatorio_especialidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/til_especialidad"
+                app:layout_constraintTop_toBottomOf="@+id/til_especialidad" />
+
+               <com.google.android.material.textfield.TextInputLayout
+                   android:id="@+id/til_documento"
+                   style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="16dp"
+                   app:boxCornerRadiusBottomEnd="8dp"
+                   app:boxCornerRadiusBottomStart="8dp"
+                   app:boxCornerRadiusTopEnd="8dp"
+                   app:boxCornerRadiusTopStart="8dp"
+                   app:boxStrokeColor="@color/gray2"
+                   app:hintTextColor="@color/gray2"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toEndOf="@id/til_especialidad"
+                   app:layout_constraintTop_toBottomOf="@id/til_nombre_completo">
+
+                   <com.google.android.material.textfield.TextInputEditText
+                       android:id="@+id/etDocumentoMedico"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:hint="Documento"
+                       android:inputType="text"
+                       android:text="10203040"
+                       android:textColor="@color/black"
+                       android:textColorHint="@color/gray2" />
+               </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_obligatorio_documento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/til_documento"
+                app:layout_constraintTop_toBottomOf="@+id/til_documento" />
+
+
+
+            <TextView
+                android:id="@+id/tv_contactos_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Contactos"
+                android:textColor="@color/blue3"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_especialidad"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_contactos_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-mail"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_obligatorio_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_email"
+                app:layout_constraintTop_toBottomOf="@id/til_email" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_telefono"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_obligatorio_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Telefono o celular"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_obligatorio_telefono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_telefono"
+                app:layout_constraintTop_toBottomOf="@id/til_telefono" />
+
+            <TextView
+                android:id="@+id/tv_direccion_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Direccion profesional"
+                android:textColor="@color/blue3"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_obligatorio_telefono" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_calle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_direccion_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_calle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Calle"
+                    android:inputType="textPostalAddress|textCapWords"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_obligatorio_calle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_calle"
+                app:layout_constraintTop_toBottomOf="@id/til_calle" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_numero"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toStartOf="@id/til_complemento"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_obligatorio_calle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_numero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Número"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_obligatorio_numero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_numero"
+                app:layout_constraintTop_toBottomOf="@id/til_numero" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_complemento"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/til_numero"
+                app:layout_constraintTop_toBottomOf="@id/tv_obligatorio_calle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_complemento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Complemento"
+                    android:inputType="textPostalAddress|textCapWords"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tv_obligatorio_ciudad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_ciudad"
+                app:layout_constraintTop_toBottomOf="@id/til_ciudad" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_estado"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toStartOf="@id/til_postal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_numero">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actv_estado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Departamento"
+                    android:inputType="none"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_obligatorio_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_estado"
+                app:layout_constraintTop_toBottomOf="@id/til_estado" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_postal"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/til_numero"
+                app:layout_constraintTop_toBottomOf="@+id/til_numero">
+
+                <AutoCompleteTextView
+                    android:id="@+id/et_postal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Provincia"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_obligatorio_postal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Campo obligatorio"
+                android:textColor="@color/rosadoMediVol"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/til_calle"
+                app:layout_constraintTop_toBottomOf="@id/til_calle" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_ciudad"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/gray2"
+                app:hintTextColor="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_estado">
+
+                <AutoCompleteTextView
+                    android:id="@+id/et_ciudad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Distrito"
+                    android:inputType="textCapWords"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_concluir_registro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/blue3"
+                android:text="Guardar registro"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_ciudad" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancelar"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Cancelar"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/danger"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:strokeColor="@color/blue3"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@+id/btn_concluir_registro"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

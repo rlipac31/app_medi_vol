@@ -1,32 +1,40 @@
 package com.example.medivol_1
+import ApiClient
+import android.app.AlertDialog // Importar AlertDialog
+import android.content.DialogInterface // Importar DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar // Asegúrate de importar Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.Locale
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.SearchView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.medivol_1.formularios.EditMedicoActivity
+import com.example.medivol_1.formularios.RegistroMedicoActivity
+import com.example.medivol_1.model.medico.Medico
+import com.example.medivol_1.service.MedicoService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.medivol_1.service.MedicoService
-import com.example.medivol_1.model.medico.Medico
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Locale
 
 
 class MedicoActivity : AppCompatActivity() {
     private lateinit var medicoService: MedicoService
-
     private lateinit var medicoAdapter: MedicoAdapter
     private var medicosList: MutableList<Medico> = mutableListOf() // Lista mutable para los datos
     private lateinit var searchView: SearchView
@@ -34,10 +42,6 @@ class MedicoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medico)
-        // llamando a setup retrofit
-
-
-        //
         // Configurar la Toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbarMedico)
         setSupportActionBar(toolbar) // Necesario para usar la toolbar como ActionBar
@@ -46,39 +50,47 @@ class MedicoActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed() // Vuelve a la actividad anterior
         }
 
-
         // Obtener referencias de los botones del menú superior
-     //   val btnAddMedico: Button = findViewById(R.id.btnAddMedico)
-      //  val btnEditMedico: Button = findViewById(R.id.btnEditMedico)
-      //  val btnDeleteMedico: Button = findViewById(R.id.btnDeleteMedico)
-      //  val fabAddMedico: Button = findViewById(R.id.fabAddMedico) // El FAB de la parte inferior
+
+        val fabAddMedico: Button = findViewById(R.id.fabAddMedico)
+        // El FAB de la parte inferior
 
         // Configurar RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewMedicos)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        medicoAdapter = MedicoAdapter(medicosList)
+      //  medicoAdapter = MedicoAdapter(medicosList)
+
+        medicoAdapter = MedicoAdapter(
+            medicos = medicosList,
+            onEditClick = { medico ->
+                // Lógica para editar un médico específico
+
+                Toast.makeText(this, "Editar Médico: ${medico.nombre} ", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, EditMedicoActivity::class.java).apply {
+                   // putExtra("idMedico", idMedico) // Pasa el ID del médico
+                    putExtra("medico_object", medico) // <-- ¡Clave importante!
+                    Log.d("PasandoMedico", "Médico : ${medico}")
+                }
+                startActivity(intent)
+            },
+
+            onDeleteClick = { medico ->
+
+                // *** ¡LLAMAMOS AL DIÁLOGO DE CONFIRMACIÓN AQUÍ! ***
+                showDeleteConfirmationDialog(medico)
+
+            }
+        )
         recyclerView.adapter = medicoAdapter
 
-     /*   // Configurar listeners para los botones de CRUD superior
-        btnAddMedico.setOnClickListener {
-            Toast.makeText(this, "Agregar Médico (superior)", Toast.LENGTH_SHORT).show()
-            // Aquí iría la lógica para agregar un nuevo médico (ej. abrir un formulario)
-        }
-        btnEditMedico.setOnClickListener {
-            Toast.makeText(this, "Editar Médico (superior)", Toast.LENGTH_SHORT).show()
-            // Aquí iría la lógica para editar un médico (ej. abrir un formulario de edición)
-        }
-        btnDeleteMedico.setOnClickListener {
-            Toast.makeText(this, "Eliminar Médico (superior)", Toast.LENGTH_SHORT).show()
-            // Aquí iría la lógica para eliminar médico(s)
-        }*/
-
         // Configurar listener para el FAB inferior
-       /* fabAddMedico.setOnClickListener {
-            Toast.makeText(this, "Registrar Nuevo Perfil (FAB)", Toast.LENGTH_SHORT).show()
+        fabAddMedico.setOnClickListener {
+            Toast.makeText(this, "Registrar Nuevo Medico (FAB)", Toast.LENGTH_SHORT).show()
+            // Ejemplo de navegación
             // Este es probablemente el que usaremos para agregar un médico.
             // Aquí podrías iniciar una nueva Activity para el formulario de registro.
-        }*/
+            startActivity(Intent(this, RegistroMedicoActivity::class.java))
+        }
 
 
         // Configurar la barra de búsqueda
@@ -141,6 +153,110 @@ class MedicoActivity : AppCompatActivity() {
         }
     }
 
+    // Dentro de tu MedicoActivity:
+    private fun showDeleteConfirmationDialog(medicoToDelete: Medico) {
+        val builder = AlertDialog.Builder(this)
+
+        // Inflar el layout personalizado
+        val customLayout = layoutInflater.inflate(R.layout.dialog_delete_medico, null)
+        builder.setView(customLayout)
+
+        // --- 1. Referenciar y cargar datos del médico en los TextViews del layout personalizado ---
+        val titleTextView = customLayout.findViewById<TextView>(R.id.dialog_title)
+        val nombreTextView = customLayout.findViewById<TextView>(R.id.dialog_nombre)
+        val especialidadTextView = customLayout.findViewById<TextView>(R.id.dialog_especialidad)
+        val phoneTextView = customLayout.findViewById<TextView>(R.id.dialog_phone)
+        val documentoTextView = customLayout.findViewById<TextView>(R.id.dialog_documento)
+        val messageTextView = customLayout.findViewById<TextView>(R.id.dialog_mensage)
+        val messageTextView2 = customLayout.findViewById<TextView>(R.id.dialog_mensage2)
+
+        // Asignar los valores del médico a los TextViews
+        titleTextView.text = "Desea desactivar este perfil" // Título fijo según tu XML
+        nombreTextView.text = medicoToDelete.nombre
+        especialidadTextView.text = medicoToDelete.especialidad // Aquí pusiste especialidad, pero en el XML dice "42261160"
+        phoneTextView.text = medicoToDelete.telefono
+        documentoTextView.text = medicoToDelete.documento
+        messageTextView.text = "Al desactivar este perfil, sus informaciones quedaran inactivas para nuevas consultas." // Mensaje fijo
+        messageTextView2.text = "Certifique que no hay consultas agendadas, caso tenga, la desactivacion no podra ser concluída." // Mensaje fijo
+
+        // --- 2. Referenciar y configurar los botones del layout personalizado ---
+        val deactivateButton = customLayout.findViewById<Button>(R.id.btn_desactivar_perfil)
+        val cancelButton = customLayout.findViewById<Button>(R.id.btn_cancelar_delete_perfil)
+// *** DECLARA EL DIALOG ANTES DE ASIGNAR LOS LISTENERS ***
+        val dialog = builder.create() // Aho
+        deactivateButton.setOnClickListener {
+            medicoToDelete.id?.let { id ->
+                deleteMedicoFromService(id) // Llama a tu función para eliminar el médico
+            } ?: run {
+                Toast.makeText(this, "Error: ID del médico no disponible.", Toast.LENGTH_SHORT).show()
+            }
+            // Importante: Cierra el diálogo después de la acción
+            (dialog as? AlertDialog)?.dismiss() // Asegúrate de que 'dialog' sea el AlertDialog instanciado
+        }
+
+        cancelButton.setOnClickListener {
+            // Simplemente cierra el diálogo
+            Toast.makeText(this, "Desactivación cancelada.", Toast.LENGTH_SHORT).show()
+            (dialog as? AlertDialog)?.dismiss() // Asegúrate de que 'dialog' sea el AlertDialog instanciado
+        }
+
+        // --- ¡IMPORTANTE! NO uses builder.setPositiveButton / setNegativeButton
+        //     si ya estás manejando los botones en tu layout personalizado.
+        //     Comenta o elimina estas líneas:
+        /*
+        builder.setPositiveButton("Eliminar") { dialog: DialogInterface, which: Int ->
+            // ... (este código ahora va en el setOnClickListener del btn_desactivar_perfil)
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog: DialogInterface, which: Int ->
+            // ... (este código ahora va en el setOnClickListener del btn_cancelar_delete_perfil)
+            dialog.dismiss()
+        }
+        */
+
+
+
+        // Opcional: Para evitar que el diálogo se cierre al tocar fuera
+        dialog.setCanceledOnTouchOutside(false)
+        // Opcional: Para evitar que se cierre al presionar el botón de atrás
+        dialog.setCancelable(false)
+
+        // Mostrar el AlertDialog
+        dialog.show()
+    }
+    // --- FUNCIÓN PARA LLAMAR AL SERVICIO DE ELIMINACIÓN ---
+    private fun deleteMedicoFromService(idMedico: Long) {
+           // Lógica para desactivar/eliminar un médico específico
+        Log.e("DeleteMedico", "idMedico:  ${idMedico}")
+            val  servicio = ApiClient.getMedicoService(this)
+               servicio.deleteMedico(idMedico).enqueue(object : Callback<Unit> {
+                   override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                       if (response.isSuccessful) {
+                           // El código 200 significa éxito
+                           Toast.makeText(this@MedicoActivity, "Médico eliminado exitosamente", Toast.LENGTH_SHORT).show()
+                          getDoctors()
+
+
+                       } else {
+                           // Hubo un error (ej. 404, 400). Puedes obtener el código de error.
+                           // No tendrás acceso directo al errorBody si este endpoint realmente no envía nada.
+                           Toast.makeText(this@MedicoActivity, "Error al eliminar médico: Código ${response.code()}", Toast.LENGTH_LONG).show()
+                           Log.e("DeleteMedico", "Error: Código ${response.code()}")
+                       }
+                   }
+
+                   override fun onFailure(call: Call<Unit>, t: Throwable) {
+                       // Error de red o cualquier otra excepción
+                       Toast.makeText(this@MedicoActivity, "Error de conexión: ${t.message}", Toast.LENGTH_LONG).show()
+                       Log.e("DeleteMedico", "Fallo en la conexión", t)
+                   }
+               })
+    }
+
+
+
+
 
     // Método para inflar el menú en la Toolbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -172,32 +288,7 @@ class MedicoActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-   /* private fun loadSampleMedicos() {
-        medicosList.add(Medico(1, "Adriano Moreira Sales", "Ginecologista", "15.879-SP", "adriano@med.com", "(11) 1234-5678", "Rua A, 123 - SP"))
-        medicosList.add(Medico(2, "Amanda Siqueira", "Oftalmologista", "65.789-SP", "amanda@med.com", "(21) 9876-5432", "Av B, 456 - RJ"))
-        medicosList.add(Medico(3, "Antônio Santana", "Clínica General", "37.124-SP", "antonio@med.com", "(31) 2345-6789", "Praça C, 789 - MG"))
-        medicosList.add(Medico(4, "Barbara Aparecida", "Pediatra", "15.879-SP", "barbara@med.com", "(41) 3456-7890", "Rua D, 101 - PR", activo = false)) // Ejemplo de inactivo
-        medicosList.add(Medico(5, "Bernardo Oliveira", "Pediatra", "15.879-SP", "bernardo@med.com", "(51) 4567-8901", "Av E, 202 - RS"))
-        medicosList.add(Medico(6, "Brenda de Almeida", "Ortopedista", "47.889-PR", "brenda.almeida@med.com.br", "(51) 99999-8888", "Av. Altas Gracias, 633 -Miramar/PR\nPostal: 66.777-100"))
-        medicosList.add(Medico(7, "Bruno de Souza", "Oftalmologista", "95.612-MG", "bruno@med.com", "(61) 5678-9012", "Rua F, 303 - DF"))
-        medicosList.add(Medico(1, "Pedro Moreira Sales", "Ginecologista", "15.879-SP", "adriano@med.com", "(11) 1234-5678", "Rua A, 123 - SP"))
-        medicosList.add(Medico(2, "Javier Ziqueira", "Oftalmologista", "65.789-SP", "amanda@med.com", "(21) 9876-5432", "Av B, 456 - RJ"))
-        medicosList.add(Medico(3, "Izmael Cantana", "Clínica General", "37.124-SP", "antonio@med.com", "(31) 2345-6789", "Praça C, 789 - MG"))
-        medicosList.add(Medico(4, "Mateto Lopez", "Pediatra", "15.879-SP", "barbara@med.com", "(41) 3456-7890", "Rua D, 101 - PR", activo = false)) // Ejemplo de inactivo
-        medicosList.add(Medico(5, "Bernardo Oliveira", "Pediatra", "15.879-SP", "bernardo@med.com", "(51) 4567-8901", "Av E, 202 - RS"))
-        medicosList.add(Medico(6, "Hipolito de Almeida", "Ortopedista", "47.889-PR", "brenda.almeida@med.com.br", "(51) 99999-8888", "Av. Altas Gracias, 633 -Miramar/PR\nPostal: 66.777-100"))
-        medicosList.add(Medico(7, "Ximena Hoyos", "Oftalmologista", "95.612-MG", "bruno@med.com", "(61) 5678-9012", "Rua F, 303 - DF"))
-        // Agrega más datos de ejemplo aquí
 
-        medicosList.sortBy { it.nombre } // Ordena la lista por nombre al cargarla
-        medicoAdapter.updateList(medicosList)
-
-        // Configurar el listener del adaptador para acciones en el ítem (opcional)
-        medicoAdapter.setOnItemClickListener { medico ->
-            Toast.makeText(this, "Click en: ${medico.nombre}", Toast.LENGTH_SHORT).show()
-            // Aquí puedes decidir qué hacer cuando se expande/contrae un médico
-        }
-    }*/
 
     private fun filterList(query: String) {
         val filteredList = if (query.isEmpty()) {

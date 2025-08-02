@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20sp"
+
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        >
+
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desea desactivar este perfil"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/danger"
+            android:paddingBottom="16dp"/>
+        <LinearLayout
+            android:id="@+id/info_medico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_title"
+            >
+            <View
+                android:id="@+id/barra_celeste"
+                android:layout_width="11dp"
+                android:layout_height="match_parent"
+                android:background="@color/blue1"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8sp"
+
+                >
+
+                <TextView
+                    android:id="@+id/dialog_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Brenda carvalo "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue3"
+                    android:lineSpacingExtra="4dp"/>
+                <TextView
+                    android:id="@+id/dialog_especialidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Especialidad"
+                    android:textColor="@color/gray2"
+                    android:lineSpacingExtra="4dp"/>
+                <TextView
+                    android:id="@+id/dialog_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text=" 42261160"
+                    android:textColor="@color/gray2"
+                    android:lineSpacingExtra="4dp"/>
+                <TextView
+                    android:id="@+id/dialog_documento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="(+51) 983245678"
+                    android:textColor="@color/gray2"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/mensage_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/info_medico"
+            android:paddingHorizontal="0dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:id="@+id/dialog_mensage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Al desactivar este perfil, sus informaciones quedaran inactivas para nuevas consultas."
+                android:textSize="16sp"
+                android:textColor="@color/gray2"
+                android:paddingBottom="16dp"
+                />
+            <TextView
+                android:id="@+id/dialog_mensage2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Certifique que no hay consultas agendadas, caso tenga, la desactivacion no podra ser concluída."
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/gray2"
+                android:paddingBottom="16dp"
+
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_desactivar_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desactivar perfil"
+            android:background="@color/blue3"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/mensage_container"
+            />
+        <Button
+            android:id="@+id/btn_cancelar_delete_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="cancelar"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_desactivar_perfil"
+            app:strokeColor="@color/blue3"
+            android:background="@color/gray2"
+            android:textColor="@color/blue3" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

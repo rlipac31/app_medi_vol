@@ -10,6 +10,10 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 firebaseAppdistributionGradle = "5.1.1"
+# CAMBIA esta línea para que referencie la versión de kotlin
+kotlinParcelize = { ref = "kotlin" } # <-- ¡Haz este cambio aquí!
+
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,4 +29,11 @@ firebase-appdistribution-gradle = { group = "com.google.firebase", name = "fireb
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+# Esta referencia está bien
+
+
+
+# Mantén esta referencia como estaba
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinParcelize" }
 

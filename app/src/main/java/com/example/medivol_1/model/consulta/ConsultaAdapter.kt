@@ -193,7 +193,7 @@ class ConsultaAdapter(private var consultas: List<Consulta>) : RecyclerView.Adap
 
         // Función auxiliar para formatear la dirección
         private fun formatAddress(direccion: Direccion): String {
-            return "${direccion.calle} ${direccion.numero}, ${direccion.barrio}, ${direccion.ciudad}, ${direccion.estado}, CP: ${direccion.codigo_postal}" +
+            return "${direccion.calle} ${direccion.numero}, ${direccion.distrito}, ${direccion.provincia}, ${direccion.departamento}, CP: ${direccion.codigo_postal}" +
                     (if (!direccion.complemento.isNullOrEmpty()) " (${direccion.complemento})" else "")
         }
     }
