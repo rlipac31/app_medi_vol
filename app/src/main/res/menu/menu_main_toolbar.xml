@@ -20,4 +20,10 @@
             android:title="Consultas"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/action_Logout"
+            android:title="Logout"
+            app:showAsAction="never" />
+            />
+
     </menu>

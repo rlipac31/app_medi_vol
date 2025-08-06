@@ -1,4 +1,4 @@
-package com.example.medivol_1
+package com.example.medivol_1.controller.paciente
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +15,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.medivol_1.Constants
+import com.example.medivol_1.ConsultaActivity
+import com.example.medivol_1.LoginActivity
+import com.example.medivol_1.R
+import com.example.medivol_1.controller.medico.MedicoActivity
 import com.example.medivol_1.model.paciente.Paciente
 import com.example.medivol_1.model.paciente.PacienteAdapter
 import com.example.medivol_1.service.PacienteService
@@ -140,6 +145,26 @@ class PacienteActivity : AppCompatActivity() {
                 Toast.makeText(this, "Navegar a Consultas", Toast.LENGTH_SHORT).show()
                 // Ejemplo de navegación
                  startActivity(Intent(this, ConsultaActivity::class.java))
+                true
+            }
+            R.id.action_Logout -> {
+                Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show()
+
+                // 1. Limpiar el token
+                TokenManager.clearToken(this)
+
+                // 2. Crear un nuevo Intent a la LoginActivity
+                val intent = Intent(this, LoginActivity::class.java)
+
+                // 3. Establecer los flags para limpiar la pila de actividades
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                // 4. Iniciar la nueva actividad
+                startActivity(intent)
+
+                // 5. Opcional, pero buena práctica: Cierra la actividad actual
+                finish()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)

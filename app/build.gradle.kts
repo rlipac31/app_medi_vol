@@ -57,6 +57,9 @@ android {
 
 
 dependencies {
+    //jwt decode // para decodificar la respuest del token
+    implementation("com.auth0.android:jwtdecode:2.0.2")
+
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")// Versión actual a Julio 2025
     implementation("com.squareup.retrofit2:converter-gson:2.12.0") // Debe coincidir con la versión de Retrofit

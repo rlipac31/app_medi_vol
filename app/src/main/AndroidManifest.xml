@@ -16,28 +16,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".formularios.EditMedicoActivity"
+            android:name=".controller.medico.EditMedicoActivity"
             android:exported="false" />
         <activity
             android:name=".model.medico.EditMedicoActivity"
             android:exported="false" />
         <activity
-            android:name=".formularios.RegistroPacienteActivity"
+            android:name=".controller.paciente.RegistroPacienteActivity"
             android:exported="false" />
         <activity
-            android:name=".formularios.RegistroMedicoActivity"
+            android:name=".controller.medico.RegistroMedicoActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".PacienteActivity"
+            android:name=".controller.paciente.PacienteActivity"
             android:exported="false" />
         <activity
             android:name=".ConsultaActivity"
             android:exported="false" />
         <activity
-            android:name=".MedicoActivity"
+            android:name=".controller.medico.MedicoActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

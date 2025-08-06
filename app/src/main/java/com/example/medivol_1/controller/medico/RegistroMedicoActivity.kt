@@ -1,4 +1,4 @@
-package com.example.medivol_1.formularios
+package com.example.medivol_1.controller.medico
 
 import com.google.gson.reflect.TypeToken
 import android.content.Intent
@@ -17,8 +17,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.medivol_1.ConsultaActivity
-import com.example.medivol_1.MedicoActivity
-import com.example.medivol_1.PacienteActivity
+import com.example.medivol_1.controller.paciente.PacienteActivity
 import com.example.medivol_1.databinding.ActivityRegistroMedicoBinding // Generado automáticamente por ViewBinding
 import com.example.medivol_1.data.Departamento
 import com.example.medivol_1.data.Distrito
@@ -53,7 +52,7 @@ class RegistroMedicoActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Configurar la Toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbarMedico)
+        val toolbar: Toolbar = findViewById(R.id.toolbarRegistroMedico)
         setSupportActionBar(toolbar) // Necesario para usar la toolbar como ActionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // Habilita el botón de retroceso
         toolbar.setNavigationOnClickListener {

@@ -4,7 +4,6 @@ package com.example.medivol_1
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +16,8 @@ import java.util.Locale
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.example.medivol_1.controller.medico.MedicoActivity
+import com.example.medivol_1.controller.paciente.PacienteActivity
 import com.example.medivol_1.model.consulta.Consulta
 import com.example.medivol_1.model.consulta.ConsultaAdapter
 import com.example.medivol_1.model.consulta.PageConsultaResponse
@@ -155,35 +156,30 @@ class ConsultaActivity : AppCompatActivity() {
                  startActivity(Intent(this, ConsultaActivity::class.java))
                 true
             }
+            R.id.action_Logout -> {
+                Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show()
+
+                // 1. Limpiar el token
+                TokenManager.clearToken(this)
+
+                // 2. Crear un nuevo Intent a la LoginActivity
+                val intent = Intent(this, LoginActivity::class.java)
+
+                // 3. Establecer los flags para limpiar la pila de actividades
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                // 4. Iniciar la nueva actividad
+                startActivity(intent)
+
+                // 5. Opcional, pero buena práctica: Cierra la actividad actual
+                finish()
+
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-    /* private fun loadSampleMedicos() {
-         medicosList.add(Medico(1, "Adriano Moreira Sales", "Ginecologista", "15.879-SP", "adriano@med.com", "(11) 1234-5678", "Rua A, 123 - SP"))
-         medicosList.add(Medico(2, "Amanda Siqueira", "Oftalmologista", "65.789-SP", "amanda@med.com", "(21) 9876-5432", "Av B, 456 - RJ"))
-         medicosList.add(Medico(3, "Antônio Santana", "Clínica General", "37.124-SP", "antonio@med.com", "(31) 2345-6789", "Praça C, 789 - MG"))
-         medicosList.add(Medico(4, "Barbara Aparecida", "Pediatra", "15.879-SP", "barbara@med.com", "(41) 3456-7890", "Rua D, 101 - PR", activo = false)) // Ejemplo de inactivo
-         medicosList.add(Medico(5, "Bernardo Oliveira", "Pediatra", "15.879-SP", "bernardo@med.com", "(51) 4567-8901", "Av E, 202 - RS"))
-         medicosList.add(Medico(6, "Brenda de Almeida", "Ortopedista", "47.889-PR", "brenda.almeida@med.com.br", "(51) 99999-8888", "Av. Altas Gracias, 633 -Miramar/PR\nPostal: 66.777-100"))
-         medicosList.add(Medico(7, "Bruno de Souza", "Oftalmologista", "95.612-MG", "bruno@med.com", "(61) 5678-9012", "Rua F, 303 - DF"))
-         medicosList.add(Medico(1, "Pedro Moreira Sales", "Ginecologista", "15.879-SP", "adriano@med.com", "(11) 1234-5678", "Rua A, 123 - SP"))
-         medicosList.add(Medico(2, "Javier Ziqueira", "Oftalmologista", "65.789-SP", "amanda@med.com", "(21) 9876-5432", "Av B, 456 - RJ"))
-         medicosList.add(Medico(3, "Izmael Cantana", "Clínica General", "37.124-SP", "antonio@med.com", "(31) 2345-6789", "Praça C, 789 - MG"))
-         medicosList.add(Medico(4, "Mateto Lopez", "Pediatra", "15.879-SP", "barbara@med.com", "(41) 3456-7890", "Rua D, 101 - PR", activo = false)) // Ejemplo de inactivo
-         medicosList.add(Medico(5, "Bernardo Oliveira", "Pediatra", "15.879-SP", "bernardo@med.com", "(51) 4567-8901", "Av E, 202 - RS"))
-         medicosList.add(Medico(6, "Hipolito de Almeida", "Ortopedista", "47.889-PR", "brenda.almeida@med.com.br", "(51) 99999-8888", "Av. Altas Gracias, 633 -Miramar/PR\nPostal: 66.777-100"))
-         medicosList.add(Medico(7, "Ximena Hoyos", "Oftalmologista", "95.612-MG", "bruno@med.com", "(61) 5678-9012", "Rua F, 303 - DF"))
-         // Agrega más datos de ejemplo aquí
 
-         medicosList.sortBy { it.nombre } // Ordena la lista por nombre al cargarla
-         medicoAdapter.updateList(medicosList)
-
-         // Configurar el listener del adaptador para acciones en el ítem (opcional)
-         medicoAdapter.setOnItemClickListener { medico ->
-             Toast.makeText(this, "Click en: ${medico.nombre}", Toast.LENGTH_SHORT).show()
-             // Aquí puedes decidir qué hacer cuando se expande/contrae un médico
-         }
-     }*/
 
     private fun filterList(query: String) {
         val filteredList = if (query.isEmpty()) {

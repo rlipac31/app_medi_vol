@@ -1,6 +1,8 @@
 package com.example.medivol_1
 
 object Constants {
+    const val USER_ROLE="ROLE_USER"
+   const val ADMIN_ROLE= "ROLE_ADMIN"
     const val BASE_URL="http://192.168.10.146:8090/"
     //login
     const val PATH_LOGIN="login"

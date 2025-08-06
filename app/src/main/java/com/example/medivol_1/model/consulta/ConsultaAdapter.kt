@@ -1,6 +1,5 @@
 package com.example.medivol_1.model.consulta
 
-import android.annotation.SuppressLint
 import com.example.medivol_1.R
 
 import android.util.Log // Importa para Log.e
@@ -14,11 +13,8 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.medivol_1.MedicoAdapter.MedicoViewHolder
 // Importa el Consulta del paquete correcto, si lo moviste a 'model'
-import com.example.medivol_1.model.consulta.Consulta
 import com.example.medivol_1.model.Direccion // Importa también el modelo Direccion
-import com.example.medivol_1.service.ConsultaService
 import java.util.Locale
 
 class ConsultaAdapter(private var consultas: List<Consulta>) : RecyclerView.Adapter<ConsultaAdapter.ConsultaViewHolder>() {

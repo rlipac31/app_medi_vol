@@ -1,4 +1,4 @@
-package com.example.medivol_1.formularios
+package com.example.medivol_1.controller.paciente
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -1,23 +1,26 @@
-package com.example.medivol_1
+package com.example.medivol_1.controller.medico
 
-import android.content.Intent
+// Importa el Medico del paquete correcto, si lo moviste a 'model'
+import TokenManager
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.medivol_1.formularios.EditMedicoActivity
-// Importa el Medico del paquete correcto, si lo moviste a 'model'
+import com.example.medivol_1.Constants
+import com.example.medivol_1.R
+import com.example.medivol_1.model.Direccion
 import com.example.medivol_1.model.medico.Medico
-import com.example.medivol_1.model.Direccion // Importa también el modelo Direccion
 
 class MedicoAdapter(
     private var medicos: List<Medico>,
     private val onEditClick: (Medico) -> Unit,      // Callback para editar
     private val onDeleteClick: (Medico) -> Unit
+
 ) : RecyclerView.Adapter<MedicoAdapter.MedicoViewHolder>() {
 
     // Listener para los clics en los ítems (puedes usarlo para expandir/colapsar o para acciones generales)
@@ -29,21 +32,35 @@ class MedicoAdapter(
         onItemClickListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicoViewHolder {
+   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_medico, parent, false)
         return MedicoViewHolder(view, onEditClick, onDeleteClick)
 
     }
 
-    override fun onBindViewHolder(holder: MedicoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MedicoViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val medico = medicos[position]
         holder.bind(medico)
+        // Obtén el Context desde la vista del holder.
+        val context = holder.itemView.context
+    //obteniendo role del usuario
+        // Pasa el context a la función getUserRole()
+         var userRole = TokenManager.getUserRole(context)
+        Log.e("UserRole", "rol de usuario de usuario: $userRole")
 
         // Lógica para el encabezado de la letra (si la lista no está vacía)
         if (medicos.isNotEmpty()) { // Añadir esta comprobación para evitar IndexOutOfBounds si la lista está vacía
             if (position == 0 || medicos[position - 1].nombre[0] != medico.nombre[0]) {
                 holder.tvLetterHeader.visibility = View.VISIBLE
                 holder.tvLetterHeader.text = medico.nombre[0].uppercaseChar().toString() // Asegurar mayúscula
+                if (userRole == Constants.ADMIN_ROLE){
+                    holder.btnDesactivar.visibility = View.VISIBLE
+                    holder.btnEditar.visibility = View.VISIBLE
+                } else {
+                    holder.btnDesactivar.visibility= View.GONE
+                    holder.btnEditar.visibility= View.GONE
+                }
+
             } else {
                 holder.tvLetterHeader.visibility = View.GONE
             }

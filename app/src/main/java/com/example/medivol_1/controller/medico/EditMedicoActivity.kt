@@ -1,27 +1,28 @@
-package com.example.medivol_1.formularios
+package com.example.medivol_1.controller.medico
 
 import ApiClient
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.medivol_1.MedicoActivity
-import com.example.medivol_1.PacienteActivity
+import com.example.medivol_1.ConsultaActivity
+import com.example.medivol_1.LoginActivity
+import com.example.medivol_1.controller.paciente.PacienteActivity
 import com.example.medivol_1.R
 import com.example.medivol_1.data.Departamento
 import com.example.medivol_1.data.Distrito
 import com.example.medivol_1.data.Provincia
 import com.example.medivol_1.databinding.ActivityEditMedicoBinding
-import com.example.medivol_1.databinding.ActivityRegistroMedicoBinding
 import com.example.medivol_1.model.Direccion
 import com.example.medivol_1.model.medico.Especialidad
 import com.example.medivol_1.model.medico.Medico
@@ -57,6 +58,17 @@ class EditMedicoActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityEditMedicoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        // Configurar la Toolbar
+      //  val toolbar: Toolbar = findViewById(R.id.toolbarEditMedico)
+     //   binding.toolbarEditMedico
+        setSupportActionBar(binding.toolbarEditMedico) // Necesario para usar la toolbar como ActionBar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Habilita el botón de retroceso
+        binding.toolbarEditMedico.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed() // Vuelve a la actividad anterior
+        }
+
         // --- CORRECTO: Recupera el OBJETO Medico completo ---
         medicoToEdit = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // Para Android 13 (API 33) y superior
@@ -324,4 +336,59 @@ class EditMedicoActivity : AppCompatActivity() {
 
 
     }
+
+    // Método para inflar el menú en la Toolbar
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main_toolbar, menu) // Infla tu archivo de menú
+        return true
+    }
+
+    // Método para manejar los clics en los ítems del menú
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_medicos -> {
+                Toast.makeText(this, "Navegar a Médicos", Toast.LENGTH_SHORT).show()
+                // Ejemplo de navegación
+                startActivity(Intent(this, MedicoActivity::class.java))
+                true
+            }
+
+            R.id.action_pacientes -> {
+                Toast.makeText(this, "Navegar a Pacientes", Toast.LENGTH_SHORT).show()
+                // Ejemplo de navegación
+                startActivity(Intent(this, PacienteActivity::class.java))
+                true
+            }
+
+            R.id.action_consultas -> {
+                Toast.makeText(this, "Navegar a Consultas", Toast.LENGTH_SHORT).show()
+                // Ejemplo de navegación
+                startActivity(Intent(this, ConsultaActivity::class.java))
+                true
+            }
+            R.id.action_Logout -> {
+                Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show()
+
+                // 1. Limpiar el token
+                TokenManager.clearToken(this)
+
+                // 2. Crear un nuevo Intent a la LoginActivity
+                val intent = Intent(this, LoginActivity::class.java)
+
+                // 3. Establecer los flags para limpiar la pila de actividades
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                // 4. Iniciar la nueva actividad
+                startActivity(intent)
+
+                // 5. Opcional, pero buena práctica: Cierra la actividad actual
+                finish()
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }

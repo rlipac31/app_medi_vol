@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".formularios.RegistroPacienteActivity">
+    tools:context=".controller.paciente.RegistroPacienteActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

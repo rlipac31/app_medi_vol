@@ -1,12 +1,13 @@
-package com.example.medivol_1
+package com.example.medivol_1.controller.medico
 import ApiClient
-import android.app.AlertDialog // Importar AlertDialog
-import android.content.DialogInterface // Importar DialogInterface
+import TokenManager
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.SearchView
 import android.widget.TextView
@@ -18,8 +19,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.medivol_1.formularios.EditMedicoActivity
-import com.example.medivol_1.formularios.RegistroMedicoActivity
+import com.example.medivol_1.Constants
+import com.example.medivol_1.ConsultaActivity
+import com.example.medivol_1.LoginActivity
+import com.example.medivol_1.R
+import com.example.medivol_1.controller.paciente.PacienteActivity
 import com.example.medivol_1.model.medico.Medico
 import com.example.medivol_1.service.MedicoService
 import kotlinx.coroutines.Dispatchers
@@ -50,9 +54,17 @@ class MedicoActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed() // Vuelve a la actividad anterior
         }
 
-        // Obtener referencias de los botones del menú superior
-
+        // Obtener referencia de  boton crear medico
+        var userRole = TokenManager.getUserRole(this)
         val fabAddMedico: Button = findViewById(R.id.fabAddMedico)
+        fabAddMedico.visibility= View.GONE
+
+        if (userRole == Constants.ADMIN_ROLE){
+            fabAddMedico.visibility= View.VISIBLE
+
+        } else {
+            fabAddMedico.visibility= View.GONE
+        }
         // El FAB de la parte inferior
 
         // Configurar RecyclerView
@@ -75,12 +87,13 @@ class MedicoActivity : AppCompatActivity() {
             },
 
             onDeleteClick = { medico ->
-
                 // *** ¡LLAMAMOS AL DIÁLOGO DE CONFIRMACIÓN AQUÍ! ***
                 showDeleteConfirmationDialog(medico)
 
             }
         )
+
+
         recyclerView.adapter = medicoAdapter
 
         // Configurar listener para el FAB inferior
@@ -180,40 +193,26 @@ class MedicoActivity : AppCompatActivity() {
         messageTextView2.text = "Certifique que no hay consultas agendadas, caso tenga, la desactivacion no podra ser concluída." // Mensaje fijo
 
         // --- 2. Referenciar y configurar los botones del layout personalizado ---
-        val deactivateButton = customLayout.findViewById<Button>(R.id.btn_desactivar_perfil)
+        val desactivateButton = customLayout.findViewById<Button>(R.id.btn_desactivar_perfil)
         val cancelButton = customLayout.findViewById<Button>(R.id.btn_cancelar_delete_perfil)
 // *** DECLARA EL DIALOG ANTES DE ASIGNAR LOS LISTENERS ***
         val dialog = builder.create() // Aho
-        deactivateButton.setOnClickListener {
+        desactivateButton.setOnClickListener {
             medicoToDelete.id?.let { id ->
                 deleteMedicoFromService(id) // Llama a tu función para eliminar el médico
             } ?: run {
                 Toast.makeText(this, "Error: ID del médico no disponible.", Toast.LENGTH_SHORT).show()
             }
-            // Importante: Cierra el diálogo después de la acción
-            (dialog as? AlertDialog)?.dismiss() // Asegúrate de que 'dialog' sea el AlertDialog instanciado
+            // **CORRECCIÓN AQUÍ**: Llama a dismiss() directamente
+            dialog.dismiss()
         }
 
         cancelButton.setOnClickListener {
             // Simplemente cierra el diálogo
-            Toast.makeText(this, "Desactivación cancelada.", Toast.LENGTH_SHORT).show()
-            (dialog as? AlertDialog)?.dismiss() // Asegúrate de que 'dialog' sea el AlertDialog instanciado
-        }
-
-        // --- ¡IMPORTANTE! NO uses builder.setPositiveButton / setNegativeButton
-        //     si ya estás manejando los botones en tu layout personalizado.
-        //     Comenta o elimina estas líneas:
-        /*
-        builder.setPositiveButton("Eliminar") { dialog: DialogInterface, which: Int ->
-            // ... (este código ahora va en el setOnClickListener del btn_desactivar_perfil)
+            // **CORRECCIÓN AQUÍ**: Llama a dismiss() directamente
             dialog.dismiss()
         }
 
-        builder.setNegativeButton("Cancelar") { dialog: DialogInterface, which: Int ->
-            // ... (este código ahora va en el setOnClickListener del btn_cancelar_delete_perfil)
-            dialog.dismiss()
-        }
-        */
 
 
 
@@ -283,6 +282,26 @@ class MedicoActivity : AppCompatActivity() {
                 Toast.makeText(this, "Navegar a Consultas", Toast.LENGTH_SHORT).show()
                 // Ejemplo de navegación
                  startActivity(Intent(this, ConsultaActivity::class.java))
+                true
+            }
+            R.id.action_Logout -> {
+                Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show()
+
+                // 1. Limpiar el token
+                TokenManager.clearToken(this)
+
+                // 2. Crear un nuevo Intent a la LoginActivity
+                val intent = Intent(this, LoginActivity::class.java)
+
+                // 3. Establecer los flags para limpiar la pila de actividades
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                // 4. Iniciar la nueva actividad
+                startActivity(intent)
+
+                // 5. Opcional, pero buena práctica: Cierra la actividad actual
+                finish()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
