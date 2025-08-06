@@ -40,10 +40,13 @@ Aquí puedes añadir algunas capturas de pantalla de tu aplicación para mostrar
 | :--------------------------: | :--------------: |
 | ![Pantalla de Login]<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_login_na8x1p.png" widt="400px" /> | ![Pantalla Inicio]<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_inicio_eoxmxq.png" widt="400px" /> |
 
-| Lista de Pacientes | Lista de Consultas |
+### Botones EDITAR Y ELIMINAR solo visibles para usuarios con rol ADMIN
+
+| Editar Medico |Desactivar Medico |
 | :----------------: | :----------------: |
 | ![Lista de Medicos]<img src="https://res.cloudinary.com/rlipac/image/upload/v1753304441/pantalla_listaMedicos_lm8dsv.png" widt="400px" />   |
-
+| ![Editar medico]<img src="https://res.cloudinary.com/rlipac/image/upload/v1754448126/pantallaeditarMedico_uhksxl.png" widt="400px" />  |
+| ![Desactivar  medico]<img src="https://res.cloudinary.com/rlipac/image/upload/v1754447987/pantallaDeletemedico_vzzxwx.png" widt="400px" />  |
 ---
 
 **Nota:**
@@ -113,3 +116,4 @@ Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENS
 **¡Gracias por revisar el proyecto Medivol!**
 
 ---
+
